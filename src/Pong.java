@@ -3,8 +3,6 @@ import java.awt.Frame;
 import java.awt.Stroke;
 import java.awt.image.BufferStrategy;
 
-import game.Pong.GameState;
-
 public class Pong {
 	
 	/*
