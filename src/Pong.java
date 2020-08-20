@@ -56,7 +56,7 @@ public class Pong {
     }
 	
 	private void quit() {
-		
+	 window.dispose();	
 	}
 
 	private void run() {
@@ -64,7 +64,40 @@ public class Pong {
 	}
 
 	private void init() {
-		
+		 // setup game state
+        titleFont = new Font("Verdana", Font.BOLD, 60);
+        menuFont = new Font("Verdana", Font.BOLD, 10);
+        scoreFont = new Font("Fixed Width", Font.BOLD, 80);
+        winnerFont = new Font("Verdana", Font.BOLD, 18);
+        centreStroke = new BasicStroke(BALL_RADIUS, BasicStroke.CAP_BUTT,
+                                       BasicStroke.JOIN_MITER, 10f, new float[]{8f}, 0f);
+        keys = new boolean[256];
+        singlePlayer = false;
+        state = GameState.MENU;
+        resetPoint();
+
+        // setup the game window
+        window = new Frame(GAME_NAME);
+        window.setIgnoreRepaint(true);
+        window.setUndecorated(true);
+        window.setSize(GAME_WIDTH, GAME_HEIGHT);
+        window.setResizable(false);
+        window.setLocationRelativeTo(null);
+        window.addWindowListener(new WindowAdapter(){
+            public void windowClosing(WindowEvent evt){ finished = true; }
+        });
+        window.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) { keys[e.getKeyCode()] = true; }
+            public void keyReleased(KeyEvent e) { keys[e.getKeyCode()] = false; }
+        });
+
+        // show the window
+        window.setVisible(true);
+        window.requestFocus();
+
+        // setup double buffering on the display
+        window.createBufferStrategy(2);
+        bufStrat = window.getBufferStrategy();
 	}
 
 	public static void main() {
