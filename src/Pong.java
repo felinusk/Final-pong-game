@@ -58,7 +58,11 @@ public class Pong {
 	}
 
 	private void run() {
-		
+	 while(!finished) {
+            logic();
+            render();
+            sync();
+        }	
 	}
 
 	private void init() {
@@ -99,6 +103,26 @@ public class Pong {
         bufStrat = window.getBufferStrategy();
 		
 	}
+	 /**
+     * Updates the game state for a frame.
+     */
+    private void logic() {
+        if (keys[KeyEvent.VK_ESCAPE]) {
+            finished = true;
+            return;
+        }
+
+        switch(state) {
+            case MENU:
+                updateMenu(); break;
+            case INGAME:
+                updateGame(); break;
+            case POINTSCORED:
+                updatePointScored(); break;
+            case WINNER:
+                updateWinner(); break;
+        }
+    }
 
 	public static void main() {
 	    Pong pong = new Pong();
